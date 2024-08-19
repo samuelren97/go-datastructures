@@ -126,6 +126,44 @@ func TestLinkList_ForEach_Ok(t *testing.T) {
 	}
 }
 
+func TestLinkList_Enqueue_Ok(t *testing.T) {
+	linkList := datastructures.NewLinkList[string]()
+	linkList.Add("a")
+	linkList.Add("m")
+
+	linkList.Enqueue("s")
+	expected := "sam"
+
+	var result string = ""
+	linkList.ForEach(func(s string) { result += s })
+
+	if result != expected {
+		t.Errorf("Wanted: %s Got: %s", expected, result)
+	}
+}
+
+func TestLinkList_Dequeue_Ok(t *testing.T) {
+	linklist := datastructures.NewLinkList[string]()
+	linklist.Add("s")
+	linklist.Add("a")
+	linklist.Add("m")
+	linklist.Add("y")
+	expected := "sam"
+	expectedOutput := "y"
+
+	output := linklist.Dequeue()
+	var result string = ""
+	linklist.ForEach(func(s string) { result += s })
+
+	if result != expected {
+		t.Errorf("Wanted: %s Got: %s", expected, result)
+	}
+
+	if output != expectedOutput {
+		t.Errorf("Wanted output: %s, Got: %s", expectedOutput, output)
+	}
+}
+
 func TestLinkList_Clear_Ok(t *testing.T) {
 	linkList := datastructures.NewLinkList[string]()
 	linkList.Add("s")
