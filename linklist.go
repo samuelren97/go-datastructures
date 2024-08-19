@@ -124,16 +124,30 @@ func (l *LinkList[T]) Enqueue(t T) {
 		return
 	}
 
-	l.lastNode.NextNode = newNode
-	l.lastNode = newNode
-	l.Count++
+	nextNode := l.firstNode
+	l.firstNode = newNode
+	l.firstNode.NextNode = nextNode
 }
 
 func (l *LinkList[T]) Dequeue() T {
-	value := l.firstNode.Value
-	l.firstNode = l.firstNode.NextNode
+	if l.Count == 0 {
+		panic(errors.New("list is empty"))
+	}
+
+	if l.Count == 1 {
+		node := l.firstNode
+		l.firstNode = nil
+		l.lastNode = nil
+		l.Count--
+		return node.Value
+	}
+
+	beforeNode := l.getNodeAt(l.Count - 2)
+	returnNode := l.lastNode
+	beforeNode.NextNode = nil
+	l.lastNode = beforeNode
 	l.Count--
-	return value
+	return returnNode.Value
 }
 
 func (l *LinkList[T]) Peek() T {
