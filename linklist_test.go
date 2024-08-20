@@ -165,6 +165,56 @@ func TestLinkList_Dequeue_Ok(t *testing.T) {
 	}
 }
 
+func TestLinkList_Peek_Ok(t *testing.T) {
+	linklist := datastructures.NewLinkList[int]()
+	linklist.Add(1)
+	linklist.Add(2)
+	linklist.Add(3)
+	expected := 1
+
+	peekResult := linklist.Peek()
+
+	if peekResult != expected {
+		t.Errorf("Wanted: %d, Got: %d", expected, peekResult)
+	}
+}
+
+func TestLinkList_IsEmpty_AtInitNoValue_Empty(t *testing.T) {
+	linklist := datastructures.NewLinkList[int]()
+	expected := true
+
+	isEmpty := linklist.IsEmpty()
+
+	if !isEmpty {
+		t.Errorf("Wanted: %v, Got: %v", expected, isEmpty)
+	}
+}
+
+func TestLinkList_IsEmpty_AtInitOneValue_NotEmpty(t *testing.T) {
+	linklist := datastructures.NewLinkList[int]()
+	linklist.Add(1)
+	expected := false
+
+	isEmpty := linklist.IsEmpty()
+
+	if isEmpty {
+		t.Errorf("Wanted: %v, Got: %v", expected, isEmpty)
+	}
+}
+
+func TestLinkList_IsEmpty_RemoveValue_Empty(t *testing.T) {
+	linklist := datastructures.NewLinkList[int]()
+	linklist.Add(1)
+	linklist.Remove(0)
+	expected := true
+
+	isEmpty := linklist.IsEmpty()
+
+	if !isEmpty {
+		t.Errorf("Wanted: %v, Got: %v", expected, isEmpty)
+	}
+}
+
 func TestLinkList_Clear_Ok(t *testing.T) {
 	linkList := datastructures.NewLinkList[string]()
 	linkList.Add("s")
