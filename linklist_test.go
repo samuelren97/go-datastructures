@@ -1,8 +1,9 @@
 package datastructures_test
 
 import (
-	"datastructures"
 	"testing"
+
+	"github.com/samuelren97/go-datastructures"
 )
 
 func TestLinkList_Add_OneMore(t *testing.T) {
