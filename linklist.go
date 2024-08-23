@@ -151,6 +151,10 @@ func (l *LinkList[T]) Dequeue() T {
 }
 
 func (l *LinkList[T]) Peek() T {
+	if l.IsEmpty() {
+		panic("cannot peek an empty list")
+	}
+
 	return l.firstNode.Value
 }
 
