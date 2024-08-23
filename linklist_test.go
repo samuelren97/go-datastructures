@@ -55,6 +55,28 @@ func TestLinkList_Get_ThreeElements_Ok(t *testing.T) {
 	}
 }
 
+func TestLinkList_Get_NoValue_Panic(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Errorf("expected panic but did not occur")
+		}
+	}()
+
+	linklist := datastructures.NewLinkList[int]()
+	linklist.Get(0)
+}
+
+func TestLinkList_Get_NegativeIndex_Panic(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Errorf("expected panic but did not occur")
+		}
+	}()
+
+	linklist := datastructures.NewLinkList[int]()
+	linklist.Get(-1)
+}
+
 func TestLinkList_Remove_OneElementInList_Ok(t *testing.T) {
 	list := datastructures.NewLinkList[int]()
 	list.Add(42)
@@ -163,6 +185,19 @@ func TestLinkList_Dequeue_Ok(t *testing.T) {
 	if output != expectedOutput {
 		t.Errorf("Wanted output: %s, Got: %s", expectedOutput, output)
 	}
+}
+
+func TestLinkList_Peek_NoValueInList_Panic(t *testing.T) {
+	defer func() {
+		r := recover()
+		if r == nil {
+			t.Errorf("expected panic but did not occur")
+		}
+	}()
+
+	linklist := datastructures.NewLinkList[int]()
+
+	linklist.Peek()
 }
 
 func TestLinkList_Peek_Ok(t *testing.T) {
